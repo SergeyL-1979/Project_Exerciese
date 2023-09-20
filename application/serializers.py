@@ -1,20 +1,26 @@
 from rest_framework import serializers
 
 from application.models import Product, Lesson
-
-
-class ProductSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Product
-        fields = '__all__'
+from users.serializers import UserSerializer
 
 
 class LessonSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Lesson
-        fields = '__all__'
+        fields = ["lesson_name", "lesson_link", "lesson_time", ]
+
+
+class ProductSerializer(serializers.ModelSerializer):
+    author_product = UserSerializer()
+    lesson_product = LessonSerializer(many=True)
+
+    class Meta:
+        model = Product
+        fields = ["name_product", "author_product", "lesson_product", ]
+
+
+
 
 
 
