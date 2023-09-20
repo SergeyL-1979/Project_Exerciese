@@ -25,7 +25,7 @@ urlpatterns = [
     path('accounts/', include('rest_framework.urls', namespace="rest_framework")),
 
     path("users/", include(('users.urls', 'users'), namespace='users')),
-    path('application', include(('application.urls', 'application'), namespace='application')),
+    path('application/', include(('application.urls', 'application'), namespace='application')),
 ]
 
 urlpatterns += doc_urls

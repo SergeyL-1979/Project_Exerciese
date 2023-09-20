@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     # ===== My Apps =====
     'users.apps.UsersConfig',
+    'application.apps.ApplicationConfig'
     # ====================
 ]
 
