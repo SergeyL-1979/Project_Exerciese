@@ -18,6 +18,7 @@ class LessonPermissions(permissions.BasePermission):
         if not request.user.is_authenticated:
             return False
         if request.method in permissions.SAFE_METHODS:
-            return UserLesson.objects.filter(user=request.user, lesson=obj).exists()
+            # return UserLesson.objects.filter(user=request.user, lesson=obj).exists()
             # return UserProduct.objects.all()
+            return UserProduct.objects.filter(user=request.user, product=obj.product.all()).exists()
 

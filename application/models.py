@@ -39,16 +39,28 @@ class Lesson(models.Model):
     def __str__(self):
         return '{}'.format(self.lesson_name)
 
+    class Meta:
+        verbose_name = 'Урок'
+        verbose_name_plural = 'Уроки'
+
 
 class UserProduct(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Author User')
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Product Lesson')
+
+    class Meta:
+        verbose_name = 'Продукт пользователя'
+        verbose_name_plural = 'Продукты пользователя'
 
 
 class UserLesson(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Author User')
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, verbose_name='Lesson')
     viewed_time = models.PositiveIntegerField(verbose_name='Продолжительность')
+
+    class Meta:
+        verbose_name = 'Урок пользователя'
+        verbose_name_plural = 'Уроки пользователя'
 
 
 # class LessonView(models.Model):
