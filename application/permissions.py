@@ -11,8 +11,8 @@ class LessonPermissions(permissions.BasePermission):
     #
     #     if not request.user.is_authenticated:
     #         return False
-        # if request.method in permissions.SAFE_METHODS:
-        #     return UserProduct.objects.filter(user=request.user, ).exists()
+    #     if request.method in permissions.SAFE_METHODS:
+    #         return UserProduct.objects.filter(user=request.user, ).exists()
 
     def has_object_permission(self, request, view, obj):
         if not request.user.is_authenticated:
@@ -21,4 +21,3 @@ class LessonPermissions(permissions.BasePermission):
             # return UserLesson.objects.filter(user=request.user, lesson=obj).exists()
             # return UserProduct.objects.all()
             return UserProduct.objects.filter(user=request.user, product=obj.product.all()).exists()
-
