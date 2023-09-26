@@ -1,6 +1,51 @@
 from django.db import models
-from django.db.models import Sum
 from users.models import User
+
+
+class Product(models.Model):
+    title = models.CharField(max_length=35, verbose_name='Наименование')
+    user = models.ForeignKey(User, models.PROTECT, verbose_name='Автор')
+
+    def __str__(self):
+        return '{}'.format(self.title)
+
+    class Meta:
+        verbose_name = 'Продукт'
+        verbose_name_plural = 'Продукты'
+
+
+class ProductAccess(models.Model):
+    user = models.ForeignKey(User, models.PROTECT)
+    product = models.ForeignKey(Product, models.PROTECT, related_name='accesses')
+    is_valid = models.BooleanField(default=True)
+
+    def __str__(self):
+        return '{}'.format(self.product)
+
+    class Meta:
+        verbose_name = 'Доступ к продукту'
+        verbose_name_plural = 'Доступ к продуктам'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # В этом задании у нас есть три бизнес-задачи на хранение:
@@ -10,57 +55,57 @@ from users.models import User
 #    фиксировать статус “Просмотрено”/”Не просмотрено”.
 #    Статус “Просмотрено” проставляется, если пользователь просмотрел 80% ролика.
 
-class Product(models.Model):
-    """
-    1. Создать сущность продукта. У продукта должен быть владелец.
-        Необходимо добавить сущность для сохранения доступов к продукту для пользователя."""
-    name_product = models.CharField(max_length=100, verbose_name='Название')
-    author_product = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Автор')
-    lesson_product = models.ManyToManyField('Lesson', blank=True, verbose_name='TT')
-
-    def __str__(self):
-        return '{}'.format(self.name_product)
-
-    class Meta:
-        verbose_name = 'Продукт'
-        verbose_name_plural = 'Продукты'
-
-
-class Lesson(models.Model):
-    """
-    2. Создать сущность урока. Урок может находиться в нескольких продуктах одновременно.
-        В уроке должна быть базовая информация:
-        название, ссылка на видео, длительность просмотра (в секундах).
-    """
-    lesson_name = models.CharField(max_length=64, verbose_name='Название урока')
-    lesson_link = models.URLField(null=True, blank=True, verbose_name='URL на урок')
-    lesson_time = models.PositiveIntegerField(verbose_name='Продолжительность')
-
-    def __str__(self):
-        return '{}'.format(self.lesson_name)
-
-    class Meta:
-        verbose_name = 'Урок'
-        verbose_name_plural = 'Уроки'
-
-
-class UserProduct(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Author User')
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Product Lesson')
-
-    class Meta:
-        verbose_name = 'Продукт пользователя'
-        verbose_name_plural = 'Продукты пользователя'
-
-
-class UserLesson(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Author User')
-    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, verbose_name='Lesson')
-    viewed_time = models.PositiveIntegerField(verbose_name='Продолжительность')
-
-    class Meta:
-        verbose_name = 'Урок пользователя'
-        verbose_name_plural = 'Уроки пользователя'
+# class Product(models.Model):
+#     """
+#     1. Создать сущность продукта. У продукта должен быть владелец.
+#         Необходимо добавить сущность для сохранения доступов к продукту для пользователя."""
+#     name_product = models.CharField(max_length=100, verbose_name='Название')
+#     author_product = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Автор')
+#     lesson_product = models.ManyToManyField('Lesson', blank=True, verbose_name='TT')
+#
+#     def __str__(self):
+#         return '{}'.format(self.name_product)
+#
+#     class Meta:
+#         verbose_name = 'Продукт'
+#         verbose_name_plural = 'Продукты'
+#
+#
+# class Lesson(models.Model):
+#     """
+#     2. Создать сущность урока. Урок может находиться в нескольких продуктах одновременно.
+#         В уроке должна быть базовая информация:
+#         название, ссылка на видео, длительность просмотра (в секундах).
+#     """
+#     lesson_name = models.CharField(max_length=64, verbose_name='Название урока')
+#     lesson_link = models.URLField(null=True, blank=True, verbose_name='URL на урок')
+#     lesson_time = models.PositiveIntegerField(verbose_name='Продолжительность')
+#
+#     def __str__(self):
+#         return '{}'.format(self.lesson_name)
+#
+#     class Meta:
+#         verbose_name = 'Урок'
+#         verbose_name_plural = 'Уроки'
+#
+#
+# class UserProduct(models.Model):
+#     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Author User')
+#     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Product Lesson')
+#
+#     class Meta:
+#         verbose_name = 'Продукт пользователя'
+#         verbose_name_plural = 'Продукты пользователя'
+#
+#
+# class UserLesson(models.Model):
+#     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Author User')
+#     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, verbose_name='Lesson')
+#     viewed_time = models.PositiveIntegerField(verbose_name='Продолжительность')
+#
+#     class Meta:
+#         verbose_name = 'Урок пользователя'
+#         verbose_name_plural = 'Уроки пользователя'
 
 
 # class LessonView(models.Model):
