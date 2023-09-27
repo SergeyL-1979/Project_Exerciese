@@ -1,18 +1,21 @@
-from django.urls import path
+from django.urls import path, include
 from lesson import views
 from rest_framework import routers
 
-router = routers.DefaultRouter()
+# router = routers.DefaultRouter()
+router = routers.SimpleRouter()
+router.register('my-lesson', views.LessonViewSet, 'my-lesson')
 
-router.register(r'prod', views.ProductViewSet, basename='product')
-router.register(r'prodaccess', views.ProductAccessViewSet, basename='product_access')
-router.register(r'lesson', views.LessonViewSet, basename='lesson')
-router.register(r'lessoninfo', views.LessonInfoViewSet, basename='lesson_info')
+# router.register('prod', views.ProductViewSet, basename='product')
+# router.register('prod-access', views.ProductAccessViewSet, basename='product_access')
+# router.register('lesson', views.LessonViewSet, basename='lesson')
+# router.register('lesson-info', views.LessonInfoViewSet, basename='lesson_info')
 
 
 urlpatterns = [
+    path('', include(router.urls))
     # path('prod/', views.ProductViewSet.as_view({'get': 'list'}),),
     # path('lesson/', views.LessonViewSet.as_view({'get': 'list'})),
 ]
 
-urlpatterns += router.urls
+# urlpatterns += router.urls

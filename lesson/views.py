@@ -1,3 +1,4 @@
+from django.db.models import FilteredRelation, Q, F
 from rest_framework import viewsets, permissions
 from rest_framework import generics
 
@@ -26,7 +27,19 @@ class LessonViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         accesses = ProductAccess.objects.filter(user=self.request.user, is_valid=True)
 
-        qs = Lesson.objects.filter(products=accesses.values("product_id"))
+        qs = Lesson.objects.filter(
+            products__in=accesses.values("product_id")
+        ).alias(
+            view_info=FilteredRelation(
+                'views',
+                condition=Q(views__user=self.request.user)
+            )
+        ).annotate(
+            status=F('view_info__status'),
+            view_time=F('view_info')
+        )
+
+        return qs
 
 
 class LessonInfoViewSet(viewsets.ModelViewSet):

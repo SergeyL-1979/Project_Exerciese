@@ -10,4 +10,4 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(ProductAccess)
 class ProductAccessAdmin(admin.ModelAdmin):
-    li = ["user", "product", ]
+    list_display = ["user", "product", "is_valid"]

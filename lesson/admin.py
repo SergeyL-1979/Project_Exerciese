@@ -11,5 +11,6 @@ class LessonAdmin(admin.ModelAdmin):
 @admin.register(LessonInfo)
 class LessonInfoAdmin(admin.ModelAdmin):
     list_display = ["lesson", "user", "status", "video_view", ]
+    list_filter = ["status"]
 
 

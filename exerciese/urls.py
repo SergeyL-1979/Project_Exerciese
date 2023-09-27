@@ -20,13 +20,14 @@ from exerciese.yasg import urlpatterns as doc_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("__debug__/", include("debug_toolbar.urls")),
 
     # === API Document ===
     path('accounts/', include('rest_framework.urls', namespace="rest_framework")),
 
     path('users/', include(('users.urls', 'users'), namespace='users')),
     # path('', include(('application.urls', 'application'), namespace='application')),
-    path('', include(('lesson.urls', 'lesson'), namespace='lesson')),
+    path('lesson/', include(('lesson.urls', 'lesson'), namespace='lesson')),
 ]
 
 urlpatterns += doc_urls
