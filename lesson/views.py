@@ -19,9 +19,14 @@ class ProductAccessViewSet(viewsets.ModelViewSet):
 
 
 class LessonViewSet(viewsets.ModelViewSet):
-    queryset = Lesson.objects.all()
+    # queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
-    # permission_classes = [permissions.IsAuthenticated, ]
+    permission_classes = [permissions.IsAuthenticated, ]
+
+    def get_queryset(self):
+        accesses = ProductAccess.objects.filter(user=self.request.user, is_valid=True)
+
+        qs = Lesson.objects.filter(products=accesses.values("product_id"))
 
 
 class LessonInfoViewSet(viewsets.ModelViewSet):

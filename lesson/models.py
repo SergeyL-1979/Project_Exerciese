@@ -10,6 +10,13 @@ class Lesson(models.Model):
     video_duration = models.PositiveIntegerField(default=0, verbose_name='Продолжительность')
     products = models.ManyToManyField(Product)
 
+    def __str__(self):
+        return '{}'.format(self.title)
+
+    class Meta:
+        verbose_name = 'Урок'
+        verbose_name_plural = 'Уроки'
+
 
 class LessonStatus(models.TextChoices):
     VIEWED = "Просмотрено"
@@ -21,6 +28,10 @@ class LessonInfo(models.Model):
     user = models.ForeignKey(User, models.CASCADE)
     status = models.CharField(max_length=30, choices=LessonStatus.choices, default=LessonStatus.NOT_VIEWED)
     video_view = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        verbose_name = 'Информация об уроке'
+        verbose_name_plural = 'Информация об уроках'
 
 
 

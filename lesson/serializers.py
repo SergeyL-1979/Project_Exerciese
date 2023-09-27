@@ -5,26 +5,12 @@ from lesson.models import Lesson, LessonInfo
 from users.serializers import UserSerializer
 
 
-class LessonSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Lesson
-        fields = '__all__'
-
-
-class LessonInfoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = LessonInfo
-        fields = '__all__'
-
-
 class ProductSerializer(serializers.ModelSerializer):
-    author_product = UserSerializer()
-    lesson_product = LessonSerializer(many=True)
+    user = UserSerializer()
 
     class Meta:
         model = Product
-        fields = '__all__'
+        fields = ["title", "user", ]
 
 
 class ProductAccessSerializer(serializers.ModelSerializer):
@@ -34,8 +20,18 @@ class ProductAccessSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class LessonSerializer(serializers.ModelSerializer):
+    products = ProductSerializer(many=True)
+
+    class Meta:
+        model = Lesson
+        fields = ["title", "url_link", "video_duration", "products", ]
 
 
+class LessonInfoSerializer(serializers.ModelSerializer):
 
+    class Meta:
+        model = LessonInfo
+        fields = ["lesson", "user", "status", "video_view", ]
 
 

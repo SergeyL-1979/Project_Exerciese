@@ -4,10 +4,10 @@ from rest_framework import routers
 
 router = routers.DefaultRouter()
 
-router.register(r'prod', views.ProductViewSet)
-router.register(r'prodaccess', views.ProductAccessViewSet)
-router.register(r'lesson', views.LessonViewSet)
-router.register(r'lessoninfo', views.LessonInfoViewSet)
+router.register(r'prod', views.ProductViewSet, basename='product')
+router.register(r'prodaccess', views.ProductAccessViewSet, basename='product_access')
+router.register(r'lesson', views.LessonViewSet, basename='lesson')
+router.register(r'lessoninfo', views.LessonInfoViewSet, basename='lesson_info')
 
 
 urlpatterns = [
