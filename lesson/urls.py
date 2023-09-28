@@ -13,8 +13,8 @@ router.register('my-lesson', views.LessonViewSet, 'my-lesson')
 
 
 urlpatterns = [
-    path('', include(router.urls))
-    # path('prod/', views.ProductViewSet.as_view({'get': 'list'}),),
+    path('', include(router.urls)),
+    path('by-product/<int:product_id>/lessons/', views.ProductViewSet.as_view({'get': 'list'}),),
     # path('lesson/', views.LessonViewSet.as_view({'get': 'list'})),
 ]
 

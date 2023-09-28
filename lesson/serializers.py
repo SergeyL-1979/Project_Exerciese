@@ -6,11 +6,19 @@ from users.serializers import UserSerializer
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
+    # user = UserSerializer()
+    status = serializers.CharField()
+    view_time = serializers.IntegerField()
+    last_view_datetime = serializers.DateTimeField()
 
     class Meta:
-        model = Product
-        fields = ["title", "user", ]
+        model = Lesson
+        # fields = ["title", "status", "view_time", "video_duration", "url_link", "products", ]
+        fields = ["title", "status", "view_time", "last_view_datetime", ]
+
+    # class Meta:
+    #     model = Product
+    #     fields = ["title", "user", ]
 
 
 class ProductAccessSerializer(serializers.ModelSerializer):

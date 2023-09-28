@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.db import models
 
 from application.models import Product
@@ -7,7 +9,7 @@ from users.models import User
 class Lesson(models.Model):
     title = models.CharField(max_length=64, verbose_name='Название урока')
     url_link = models.URLField(null=True, blank=True, verbose_name='URL на урок')
-    video_duration = models.IntegerField(default=0, verbose_name='Продолжительность')
+    video_duration = models.PositiveIntegerField(default=0, verbose_name='Продолжительность')
     products = models.ManyToManyField(Product)
 
     def __str__(self):
@@ -28,6 +30,7 @@ class LessonInfo(models.Model):
     user = models.ForeignKey(User, models.CASCADE)
     status = models.CharField(max_length=30, choices=LessonStatus.choices, default=LessonStatus.NOT_VIEWED)
     video_view = models.PositiveIntegerField(default=0)
+    last_view_datetime = models.DateTimeField(default=datetime.now())
 
     def __str__(self):
         return '{}'.format(self.lesson)
